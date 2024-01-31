@@ -46,6 +46,16 @@ def x_values_(file):
     return x_vals
 
 
+def sum_magnitude(lumo, lumo_1, lumo_2):
+    sum_list = []
+    for i in range(len(lumo)):
+        sumall = lumo[i] + lumo_1[i] + lumo_2[i]
+        sum_list.append(sumall)
+    return sum_list
+
+
+
+
 file1 = 'hono'
 file2 = 'luno'
 file3 = 'luno+1'
@@ -54,6 +64,8 @@ homo = calculate_complex_squared_magnitude(file1)
 lumo = calculate_complex_squared_magnitude(file2)
 lumo1 = calculate_complex_squared_magnitude(file3)
 lumo2 = calculate_complex_squared_magnitude(file4)
+
+magnitude = sum_magnitude(lumo, lumo1, lumo2)
 
 print(lumo)
 print(len(homo))
@@ -67,6 +79,7 @@ plt.plot(x_values, homo)
 plt.plot(x_values, lumo)
 plt.plot(x_values, lumo1)
 plt.plot(x_values, lumo2)
+plt.plot(x_values, magnitude)
 # plt.ylim(0.9999998, 1.0000005)
 plt.gca().yaxis.set_major_formatter(plt.FormatStrFormatter('%.3f'))
 plt.gca().set_ylim(-0.1, 1.15)  # Set y-axis limits on the current axis
@@ -74,5 +87,8 @@ plt.gca().set_ylim(-0.1, 1.15)  # Set y-axis limits on the current axis
 plt.xlabel('pt charge distance along z-axis(Angstroms')
 plt.ylabel('Weight')
 plt.title('H$_2$ Stationary Approximation Natural Orbitals Plots')  # , LUMO, LUMO+1, LUMO+2))
-plt.legend([r'|<homo$_0$|S|homo$_d$>|$^2$', r'|<homo$_0$|S|lumo$_d$>|$^2$', r'|<homo$_0$|S|lumo+1$_d$>|$^2$', r'|<homo$_0$|S|lumo+2$_d$>|$^2$'])
+plt.legend([r'|<ψ(0)$_{hono}$|ψ(d)$_{hono}$>|$^2$', r'|<ψ(0)$_{hono}$|ψ(d)$_{luno}$>|$^2$',
+            r'|<ψ(0)$_{hono}$|ψ(d)$_{luno+1}$>|$^2$', r'|<ψ(0)$_{hono}$|ψ(d)$_{luno+2}$>|$^2$',
+            r'sum'
+            ])
 plt.show()
